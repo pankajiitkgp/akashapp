@@ -32,7 +32,7 @@ For those in a hurry, here are the main findings:
 
 We have deployed a WeSQL WeScale cluster in Kubernetes. SysBench can connect to both VTGate and MySQL directly, allowing us to compare their performance. The MySQL cluster consists of one Leader and two Followers. VTTablet is deployed as a sidecar in the MySQL Pod. VTGate and SysBench are deployed in their respective Pods. Each Pod will have exclusive access to a 4-core 16GB cloud server.
 
-![](/assets/dflvps/16923404829726.jpg)
+![](/static/images/home-image1.png)
 
 
 ## MySQL vs WeSQL WeScale (With Read Write Split Disabled)
@@ -50,10 +50,6 @@ We have deployed a WeSQL WeScale cluster in Kubernetes. SysBench can connect to 
 | 150 | 12630.16 | 1579.17 | 12351.89 | 1614.56 |
 | 175 | 12843 | 1745.59 | 12024.3 | 1864.79 |
 | 200 | 12612.59 | 1972.6 | 11686.86 | 2132.42 |
-
-
-![read_write_split_disable_qps_latency.png](/assets/dflvps/read_write_split_disable_qps_latency.png)
-
 
 Some Observations:
 
@@ -80,8 +76,6 @@ The above test proves a point: introducing WeSQL WeScale as a proxy will not aff
 | 175 | 15190.50            | 30134.91                | 10797.58      | 30037         |
 | 200 | 15280.75            | 30119.50                | 11137.25      | 30139.8       |
 
-![read_write_split_disable_cpu_memory.png](/assets/dflvps/read_write_split_disable_cpu_memory.png)
-
 During our SysBench testing, we simultaneously measured the resource usage of the two:
 - The additional memory consumption of WeSQL WeScale can be considered negligible compared to MySQL.
 - WeSQL WeScale is expected to utilize approximately 1/3 more CPU resources.
@@ -101,9 +95,6 @@ During our SysBench testing, we simultaneously measured the resource usage of th
 | 150 | 20509.19 | 729.86 | 12994.45 | 1152.22 |
 | 175 | 21289.84 | 820.12 | 12910.42 | 1352.38 |
 | 200 | 22398.34 | 931.08 | 12537.16 | 1531.23 |
-
-![read_write_split_enable_qps_latency.png](/assets/dflvps/read_write_split_enable_qps_latency.png)
-
 
 Some Observations:
 
@@ -128,8 +119,6 @@ The above test proves a point: by introducing WeSQL WeScale as a proxy, it can s
 | 150 | 16805.75 | 30184.68 | 10410.66 | 30199.41 |
 | 175 | 17098.58 | 30182.49 | 10584.91 | 30189.58 |
 | 200 | 17211.50 | 30202.25 | 10745.66 | 30185.91 |
-
-![read_write_split_enable_cpu_memory.png](/assets/dflvps/read_write_split_enable_cpu_memory.png)
 
 - In all workload scenarios, the overall memory resource usage of the cluster is similar to MySQL, which demonstrates that WeSQL WeScale only requires a minimal amount of memory.
 - Even though the QPS has almost doubled, the additional CPU introduced by WeSQL WeScale is only 70% of MySQL's. This indicates that the cost-effectiveness of horizontal scaling through the read-write separation feature is relatively high.
