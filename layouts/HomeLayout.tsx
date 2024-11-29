@@ -26,7 +26,7 @@ export default function HomeLayout({ children }: Props) {
             {children}
           </div>
           <div className="flex flex-col my-4 p-6 text-sm border-l border-zinc-100 dark:border-zinc-900">
-            <h1 className="text-xl font-semibold pb-5">Recent News</h1>
+            <h1 className="text-xl font-semibold pb-5">Recent News {process.env.BASE_PATH}</h1>
             <ul className='list-outside list-disc px-2'>
               {!posts.length && 'No posts found.'}
               {posts.slice(0, MAX_DISPLAY).map((post) => {
