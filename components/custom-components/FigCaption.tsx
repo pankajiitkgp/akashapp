@@ -1,3 +1,5 @@
+import Image from '../Image'
+
 interface Props {
   text: string,
   link: string,
@@ -8,7 +10,7 @@ export const FigCaption = ({ text, link, imgSrc }: Props) => {
   return (
     <>
       <figure className="mt-8">
-        <img alt="" src={imgSrc} className="aspect-video bg-gray-50 rounded-xl object-cover" />
+        <Image alt="" width={500} height={500} src={imgSrc} style={{ height: 'auto' }} className="aspect-video bg-gray-50 rounded-xl object-cover" />
         <figcaption className="flex gap-x-2 mt-4 text-gray-700">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon" className="size-5 flex-none text-zinc-300">
             <path
