@@ -54,18 +54,23 @@ const securityHeaders = [
   },
 ]
 
+const output = process.env.EXPORT ? 'export' : undefined
+const basePath = process.env.BASE_PATH || undefined
+const unoptimized = process.env.UNOPTIMIZED ? true : undefined
+
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
 module.exports = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
-    output: 'export',
+    output,
+    basePath,
     reactStrictMode: true,
+    ignoreDuringBuilds: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
-      ignoreDuringBuilds: true,
     },
     images: {
       remotePatterns: [
@@ -74,16 +79,16 @@ module.exports = () => {
           hostname: 'picsum.photos',
         },
       ],
-      unoptimized: true,
+      unoptimized,
     },
-    // async headers() {
-    //   return [
-    //     {
-    //       source: '/(.*)',
-    //       headers: securityHeaders,
-    //     },
-    //   ]
-    // },
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: securityHeaders,
+        },
+      ]
+    },
     webpack: (config, options) => {
       config.module.rules.push({
         test: /\.svg$/,
